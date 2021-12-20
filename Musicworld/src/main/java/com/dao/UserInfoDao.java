@@ -7,133 +7,10 @@ import com.connection.util.ConnectionUtil;
 import Model.UserInfo;
 
 public class UserInfoDao {
-	public void insertUser() throws ClassNotFoundException, SQLException
+	public void insertUser(UserInfo str) throws ClassNotFoundException, SQLException
 	{
 		
-		boolean flagCheck =false;
-		String firstName;
-		String lastName;
-		String email_id;
-		String userName;
-		String password;
-		String role;
-		long mobileNumber=0;
-		
-
-		Scanner sc = new Scanner(System.in);
-
-		do {
-		System.out.println("Enter your firstName: ");
-		firstName = sc.nextLine();
-		if (firstName.matches("[a-zA-Z]+")&&firstName!="")
-		{
-		//System.out.println("Your firstName is valid");
-		flagCheck=false;
-		}
-		else
-		{
-		System.out.println("its invalid!!");
-		flagCheck=true;
-		}
-		}while(flagCheck);
-
-		do {
-		System.out.println("Enter your lastName: ");
-		lastName = sc.nextLine();
-		if (lastName.matches("[a-zA-Z]+")&&lastName!="")
-		{
-		//System.out.println("Your lastName is valid: ");
-		flagCheck=false;
-		}
-		else
-		{
-		System.out.println("its invalid!!");
-		flagCheck=true;
-		}
-		}while(flagCheck);
-
-		do {
-		System.out.println("Enter your email id: ");
-		email_id =sc.nextLine();
-		if (email_id.matches("[a-z0-9]+[@][a-z]+[.][a-z]+")&&email_id!="")
-		{
-		//System.out.println("Your emailId is valid");
-		flagCheck=false;
-		}
-		else
-		{
-		System.out.println("its invalid!!");
-		flagCheck=true;
-		}}
-		while(flagCheck);
-
-
-		do {
-		System.out.println("Enter your userName: ");
-		    userName = sc.nextLine();
-		if (userName.matches("[a-z]+")&&userName!="")
-		{
-		//System.out.println("Your userName is valid");
-		flagCheck=false;
-		}
-		else
-		{
-		System.out.println("its invalid!!");
-		flagCheck=true;
-		}
-		}while(flagCheck);
-
-		do {
-		System.out.println("Enter your password: ");
-		password = sc.nextLine();
-		if (password.matches("[a-zA-Z0-9@#]+")&&password!="")
-		{
-		//System.out.println("Your password is valid");
-		flagCheck=false;
-		}
-		else
-		{
-		System.out.println("its invalid!!");
-		flagCheck=true;
-		}
-		}while(flagCheck);
-
-		do {
-		System.out.println("Enter Your Role: ");
-		role = sc.nextLine();
-		if (role.matches("[a-zA-Z]+")&&role!="")
-		{
-		//System.out.println("Your role is valid");
-		flagCheck=false;
-		}
-		else
-		{
-		System.out.println("its invalid!!");
-		flagCheck=true;
-		}
-		}while(flagCheck);
-
-		do {
-		System.out.println("Enter your mobileNumber: ");
-		String  check=sc.nextLine();
-		if (check.matches("[0-9]{10}")&&check!="")
-		{
-		//System.out.println("Your mobileNumber is valid");
-		flagCheck=false;
-		mobileNumber=Long.parseLong(check);
-		break;
-		}
-		else
-		{
-		System.out.println("its invalid");
-		flagCheck=true;
-		}
-
-		} while(flagCheck);
-		
-
-		
-		UserInfo str = new UserInfo(firstName, lastName, email_id, userName, password, role, mobileNumber);
+	
 		Connection con= ConnectionUtil.getDBconnect();
 		String query = " insert into User_Info( first_name,  last_name, email_Id, user_name, password, role, mobile_number)values (?,?,?,?,?,?,?)";
 		
@@ -148,7 +25,45 @@ public class UserInfoDao {
 		stmt.setLong(7, str.getMobileNumber());
 		
 		stmt.executeUpdate();
-		System.out.println("You're Registered successfully");
+		//System.out.println("You're Registered successfully");
+	}
+	
+public void update (UserInfo str1) throws ClassNotFoundException, SQLException {
+    	
+    	String update="update user_info set first_name=?, last_name=?,email_id=?, password=?,role=?, mobile_number=? where User_name = ?";
+    	//+str1.getUserName()+"'"
+    	System.out.println();
+    	Connection con=ConnectionUtil.getDBconnect();
+		PreparedStatement stmt=con.prepareStatement(update);
+		
+		stmt.setString(1, str1.getFirstName());
+		stmt.setString(2, str1.getLastName());
+		stmt.setString(3, str1.getEmailId());
+		stmt.setString(4, str1.getPassword());
+		stmt.setString(5, str1.getRole());
+		stmt.setLong(6, str1.getMobileNumber());
+		stmt.setString(7, str1.getUserName());
+
+		int result=stmt.executeUpdate();
+		
+		System.out.println(result+ " is updated !!");
+    }
+	
+    
+    public void delete (String userName) throws ClassNotFoundException, SQLException {
+		
+		String delete="delete from user_info where user_name=?";
+		
+		Connection con=ConnectionUtil.getDBconnect();
+		
+		PreparedStatement stmt=con.prepareStatement(delete);
+		stmt.setString(1, userName);
+		
+		int res=stmt.executeUpdate();
+//		System.out.println(res + "is deleted");
+		stmt.close();
+		con.close();		
 	}
 
+	
 }

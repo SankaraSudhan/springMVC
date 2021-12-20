@@ -11,9 +11,8 @@ public class Library {
 	 private String album;
 	 private String genre;
 	 private String language;
-	 private String releaseDate;
-	
-	 public int getSongId() {
+
+	public int getSongId() {
 		return songId;
 	}
 	public void setSongId(int songId) {
@@ -55,21 +54,15 @@ public class Library {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	public String getReleaseDate() {
-		return releaseDate;
-	}
-	public void setReleaseDate(String releaseDate) {
-		this.releaseDate = releaseDate;
-	}
+	
 	
 	@Override
 	public String toString() {
 		return "Library [songId=" + songId + ", songTitle=" + songTitle + ", userName=" + userName + ", artists="
-				+ artists + ", album=" + album + ", genre=" + genre + ", language=" + language + ", releaseDate="
-				+ releaseDate + "]";
+				+ artists + ", album=" + album + ", genre=" + genre + ", language=" + language + "]";
 	}
 	public Library(int songId, String songTitle, String userName, String artists, String album, String genre,
-			String language, String releaseDate) {
+			String language) {
 		super();
 		this.songId = songId;
 		this.songTitle = songTitle;
@@ -78,11 +71,12 @@ public class Library {
 		this.album = album;
 		this.genre = genre;
 		this.language = language;
-		this.releaseDate = releaseDate;
+		
 	}
 	public Library() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	 
+	
+	
 }

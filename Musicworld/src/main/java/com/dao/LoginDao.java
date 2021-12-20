@@ -11,40 +11,32 @@ import com.connection.util.ConnectionUtil;
 import Model.UserInfo;
 
 public class LoginDao {
-public void login() throws ClassNotFoundException, SQLException {
+public long login(UserInfo str2) throws ClassNotFoundException, SQLException {
+	    long role = 0;
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter your userName: ");			
-		String username = sc.nextLine();
-			
-		System.out.println("Enter your password: ");
-	    String passname = sc.nextLine();
-			
-	    UserInfo str = new UserInfo();
-			
-	    str.setUserName(username);
-			
-	    str.setPassword(passname);
 			
 	    Connection con = ConnectionUtil.getDBconnect();
 			
-	    String query = "select first_name from User_info where user_name= ? and password= ? ";
+	    String query = "select first_name, mobile_number from User_info where user_name= ? and password= ? ";
 			
 	    PreparedStatement stmt = con.prepareStatement(query);
 			
-	    stmt.setString(1, str.getUserName());
-		stmt.setString(2, str.getPassword());
+	    stmt.setString(1, str2.getUserName());
+		stmt.setString(2, str2.getPassword());
 			
 		ResultSet rs = stmt.executeQuery( );
 			
 		if (rs.next()) {
 			System.out.println("Welcome "+rs.getString("first_name") );
+			 role = rs.getLong("mobile_number");
 			} 
 			else
 			{
 				System.out.println("Please enter the valid userName or password!!!");
 			}
 
+		
+		return role;
 		
 
 	}

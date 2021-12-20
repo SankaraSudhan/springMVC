@@ -25,6 +25,10 @@ public class UserInfo {
 		this.role = role;
 		this.mobileNumber = mobileNumber;
 	}
+	public UserInfo(String userName1) {
+		// TODO Auto-generated constructor stub
+		this.userName=userName1;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
