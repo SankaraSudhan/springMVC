@@ -1,13 +1,18 @@
 package com.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.connection.util.ConnectionUtil;
 
+import Model.Library;
 import Model.UserInfo;
 
 public class UserInfoDao {
+	
+	//Add user using insert method
 	public void insertUser(UserInfo str) throws ClassNotFoundException, SQLException {
 
 		Connection con = ConnectionUtil.getDBconnect();
@@ -26,11 +31,11 @@ public class UserInfoDao {
 		stmt.executeUpdate();
 		 System.out.println("You're Registered successfully");
 	}
-
+     
+	//Update user details
 	public void update(UserInfo str1) throws ClassNotFoundException, SQLException {
 		
 		String update = "update user_info set first_name=?, last_name=?,email_id=?, password=?,role=?, mobile_number=? where User_name = ? and role='user'";
-		// +str1.getUserName()+"'"
 
 		Connection con = ConnectionUtil.getDBconnect();
 		PreparedStatement stmt = con.prepareStatement(update);
@@ -49,6 +54,7 @@ public class UserInfoDao {
 		System.out.println(res + " is updated !!");
 	}
 
+	//Delete user
 	public void delete(String userName) throws ClassNotFoundException, SQLException {
 
 		try {
@@ -69,6 +75,8 @@ public class UserInfoDao {
 			System.out.println("something went wrong");
 		}
 	}
+	    
+	    //show user details
 		public void showUsers(UserInfo show) throws ClassNotFoundException, SQLException {
 			 String query ="select*from user_info";
 					 Connection con=ConnectionUtil.getDBconnect();
@@ -81,5 +89,35 @@ public class UserInfoDao {
 
                 
 	}
-
+		//List all users
+		 public List<UserInfo> showAllUsers() 
+	        {
+		    List<UserInfo> userList = new ArrayList<UserInfo>();
+	        String query ="select*from user_info";
+	        Connection con=null;
+	        PreparedStatement stmt;
+	        try {
+				con = ConnectionUtil.getDBconnect();
+			} catch (ClassNotFoundException e1) {
+				
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				
+				e1.printStackTrace();
+			}
+	        try {
+	        	 stmt =con.prepareStatement(query);
+				 ResultSet rs=stmt.executeQuery();
+				 while(rs.next())
+				 {
+					 UserInfo userInfo = new UserInfo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getLong(7));
+					 userList.add(userInfo);
+				 }
+				 
+	        }catch(SQLException e) {
+	        	
+	        	e.printStackTrace();
+	        }
+			return userList;
+}
 }

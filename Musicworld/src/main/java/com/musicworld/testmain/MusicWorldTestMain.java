@@ -21,7 +21,7 @@ public class MusicWorldTestMain {
 		int select;
 		long checkUser = 0;
 		System.out.println(
-				"'Welcome to MusicWorld' \n  Select your option: \n  1)Register/Signup \t  2)Login/Signin \t  3)Delete User \t 4)Update User \t 5)Show user ");
+				"                            'Welcome to MusicWorld' \n  Select your option: \n  1)Register/Signup \n  2)Login/Signin \n  3)Delete User \n  4)Update User \n  5)Show user \n  6)List users ");
 		select = Integer.parseInt(sc.nextLine());
 
 		switch (select) {
@@ -206,7 +206,7 @@ public class MusicWorldTestMain {
 				userName11 = sc.nextLine();
 				if (userName11.matches("[a-z]+") && userName11 != "") {
 					// System.out.println("Your userName is valid");
-					flagCheck = false;
+					flagCheck = false; 
 				} else {
 					System.out.println("its invalid!!");
 					flagCheck = true;
@@ -262,7 +262,15 @@ public class MusicWorldTestMain {
 			UserInfo show = new UserInfo();
 			obj.showUsers(show);
 			break;
-
+		case 6:
+			UserInfoDao listUsers = new UserInfoDao();
+			List<UserInfo> userList = listUsers.showAllUsers();
+			for(int i=0;i<userList.size();i++)
+			{
+		       System.out.println(userList.get(i));
+			}
+			break;
+		
 		default:
 			System.out.println("Please enter the valid details!!!");
 			break;
@@ -272,11 +280,15 @@ public class MusicWorldTestMain {
 		// Admin operations 
 
 		System.out.println(checkUser);
+		String choiceContinue= null;
 		if (checkUser == 9344774428l) {
+			do {
 			System.out.println(
-					"'Admin operations' \n  Select your option: \n  1)show songs \t   2)delete songs \t 3)add songs ");
+					"                       'Admin operations' \n  Select your option: \n  1)Show songs \t 2)Delete songs \t 3)Add songs \t 4)Song list \t 5)Update songs");
 			select = Integer.parseInt(sc.nextLine());
-
+			boolean choice;
+			boolean choice1;
+			
 			switch (select) {
 			case 1:
 				System.out.println("Show all song details");
@@ -387,9 +399,119 @@ public class MusicWorldTestMain {
 				LibraryDao lib1 = new LibraryDao();
 				lib1.insertLibrary(str3);
 				break;
+			
+			//listsongs
+			case 4:
+				LibraryDao listSongs = new LibraryDao();
+				List<Library> songList = listSongs.showAllSongs();
+				for(int i=0;i<songList.size();i++)
+				{
+			       System.out.println(songList.get(i));
+				}
+			break;
+			
+			case 5:
+				System.out.println("Enter song details to updates here: ");
+
+				Integer songId5 = 0;
+				String songTitle2;
+				String userName1;
+				String artists1;
+				String album1;
+				String genre1;
+				String language1;
+
+				do {
+					System.out.println("Enter song id: ");
+
+					String songId2 = sc.nextLine();
+					System.out.println(songId2);
+					if (songId2.matches("[0-9]{1}") && songId2 != "" && songId2 != " ") {
+						songId5 = Integer.parseInt(songId2);
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				do {
+					System.out.println("Enter songTitle: ");
+					songTitle2 = sc.nextLine();
+					if (songTitle2.matches("[a-zA-Z_]+") && songTitle2 != "") {
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				do {
+					System.out.println("Enter userName: ");
+					userName1 = sc.nextLine();
+					if (userName1.matches("[a-z]+") && userName1 != "") {
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				do {
+					System.out.println("Enter artists: ");
+					artists1 = sc.nextLine();
+					if (artists1.matches("[a-zA-Z]+") && artists1 != "") {
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				do {
+					System.out.println("Enter album: ");
+					album1 = sc.nextLine();
+					if (album1.matches("[a-zA-Z_]+") && album1 != "") {
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				do {
+					System.out.println("Enter genre: ");
+					genre1 = sc.nextLine();
+					if (genre1.matches("[a-zA-Z]+") && genre1 != "") {
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				do {
+					System.out.println("Enter language: ");
+					language1 = sc.nextLine();
+					if (language1.matches("[a-zA-Z]+") && language1 != "") {
+						flagCheck = false;
+					} else {
+						System.out.println("its invalid!!");
+						flagCheck = true;
+					}
+				} while (flagCheck);
+
+				Library up = new Library(songId5, songTitle2, userName1, artists1, album1, genre1, language1);
+				LibraryDao lib2 = new LibraryDao();
+				lib2.update(up);
+				break;
+			
 			default:
 				System.out.println("Please enter the valid details!!!");
 			}
+			System.out.println("Do you want to continue Yes  or  NO ");
+			choiceContinue=sc.nextLine();
+			}while(choiceContinue.equalsIgnoreCase("yes"));
 
 		}
 	}

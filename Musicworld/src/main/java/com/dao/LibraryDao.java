@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import com.connection.util.ConnectionUtil;
@@ -15,9 +17,9 @@ import Model.UserInfo;
 
 public class LibraryDao {
 
+	// Insert songs by admin
 	public void insertLibrary(Library str3) throws ClassNotFoundException, SQLException {
-		
-		
+
 		Connection con = ConnectionUtil.getDBconnect();
 		String query = " insert into library( song_id,  song_title, user_name, artists, album, genre, language)values (?,?,?,?,?,?,?)";
 
@@ -30,27 +32,49 @@ public class LibraryDao {
 		stmt.setString(5, str3.getAlbum());
 		stmt.setString(6, str3.getGenre());
 		stmt.setString(7, str3.getLanguage());
-		//stmt.setDate(8, new java.sql.Date(releaseDate.getTime()));
 
 		stmt.executeUpdate();
 		System.out.println("You're added successfully");
 	}
-		
+
+	// Show song details
 	public void showSongs(Library show) throws ClassNotFoundException, SQLException {
-			 String query ="select*from library";
-					 Connection con=ConnectionUtil.getDBconnect();
-					 PreparedStatement stmt =con.prepareStatement(query);
-					 ResultSet rs=stmt.executeQuery();
-					 while(rs.next())
-					 {
-						System.out.println("\n" +rs.getInt(1)+"\n"+rs.getString(2)+"\n"+rs.getString(3)+"\n"+rs.getString(4)+"\n"+rs.getString(5)+"\n"+rs.getString(6)+"\n"+rs.getString(7));
-					 }
+		String query = "select*from library";
+		Connection con = ConnectionUtil.getDBconnect();
+		PreparedStatement stmt = con.prepareStatement(query);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			System.out.println("\n" + rs.getInt(1) + "\n" + rs.getString(2) + "\n" + rs.getString(3) + "\n"
+					+ rs.getString(4) + "\n" + rs.getString(5) + "\n" + rs.getString(6) + "\n" + rs.getString(7));
+		}
 
 	}
+    
+	//Update song details
+	public void update(Library up) throws ClassNotFoundException, SQLException {
 
-	public void deleteSong(String songTitle) throws ClassNotFoundException, SQLException {
+		String update = "update library set  song_title=?, artists=?,album=?, genre=?, language = ? where song_id = ?";
+
+		Connection con = ConnectionUtil.getDBconnect();
+		PreparedStatement stmt = con.prepareStatement(update);
 
 		
+		stmt.setString(1, up.getSongTitle());
+		stmt.setString(2, up.getArtists());
+		stmt.setString(3, up.getAlbum());
+		stmt.setString(4, up.getGenre());
+		stmt.setString(5, up.getLanguage());
+		stmt.setInt(6, up.getSongId());
+		
+		// ResultSet result=stmt.executeQuery();
+		int res = stmt.executeUpdate();
+
+		System.out.println(res + " is updated !!");
+	}
+
+	// Delete song
+	public void deleteSong(String songTitle) throws ClassNotFoundException, SQLException {
+
 		String delete = "delete from library where song_title=?";
 
 		Connection con = ConnectionUtil.getDBconnect();
@@ -62,11 +86,67 @@ public class LibraryDao {
 		System.out.println(res + "is deleted");
 		stmt.close();
 		con.close();
-		}
-		
-	//Search song 
-	
-	
 	}
+
+	// list song details
+
+	public List<Library> showAllSongs() {
+		List<Library> songList = new ArrayList<Library>();
+		String query = "select*from library";
+		Connection con = null;
+		PreparedStatement stmt;
+		try {
+			con = ConnectionUtil.getDBconnect();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			stmt = con.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Library library = new Library(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7));
+				songList.add(library);
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return songList;
+	}
+     
+	
+	 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
