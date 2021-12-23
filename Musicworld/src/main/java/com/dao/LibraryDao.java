@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -98,10 +99,8 @@ public class LibraryDao {
 		try {
 			con = ConnectionUtil.getDBconnect();
 		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
@@ -121,8 +120,124 @@ public class LibraryDao {
 		return songList;
 	}
      
+	//find song id
+	public int findSongId(String name)
+	{
+		String query="select song_id from library where song_title='"+name+"'";
+		int songId=0;
+		try {
+			Connection con=ConnectionUtil.getDBconnect();
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery(query);
+			if(rs.next())
+			{
+				songId=rs.getInt(1);
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return songId;	
+	}
 	
-	 }
+	//finding song title from song object
+	public Library findSong(String name)
+	{
+		String query="select * from library where song_title='"+name+"'";
+		//int songId=findSongId(name);
+		Library song=null;
+		try {
+			Connection con=ConnectionUtil.getDBconnect();
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery(query);
+			if(rs.next())
+			{
+				song=new Library(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return song;	
+	}
+	
+	//finding song Id from song object
+	public Library findSong(int songId)
+	{
+		String query="select * from library where song_id='"+songId+"'";
+		//int songId=findSongId(name);
+		Library song=null;
+		try {
+			Connection con=ConnectionUtil.getDBconnect();
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery(query);
+			if(rs.next())
+			{
+				song=new Library(rs.getInt(1), rs.getString(2), rs.getString(3),rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7));
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return song;	
+	}
+	
+//	public static int findTrainId(TrainModel trainModel) {
+//	 	String findTrainIdQuery="select train_id from trains where train_number = "+trainModel.getTrainNumber();
+//	 	Connection con = null;
+//			try {
+//				con = ConnectionUtil.getDBconnect();
+//			} catch (ClassNotFoundException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	 	Statement stmt = null;
+//	 	int trainId = 0;
+//	 	try {
+//				stmt = con.createStatement();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//	 	try {
+//				ResultSet rs=stmt.executeQuery(findTrainIdQuery);
+//				if(rs.next()) {
+//					//System.out.println(rs.getInt(1));
+//					trainId = rs.getInt(1);
+//					//System.out.println(trainId);
+//				}
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			return trainId;
+
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	 
 	
 	
 	

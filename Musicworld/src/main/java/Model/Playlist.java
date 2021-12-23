@@ -3,16 +3,28 @@ package Model;
 import java.util.Objects;
 
 public class Playlist {
-	private int playlistId;
+	//private int playlistId;
+	//private int songId;
+	private Library song;
 	private String playlistTitle;
-	private String album;
-	private String favourites;
-	
-	public int getPlaylistId() {
-		return playlistId;
+	private String emailId;
+	@Override
+	public String toString() {
+		return  "\nsongId=" + song + ", playlistTitle=" + playlistTitle
+				+ ", emailId=" + emailId + "\n";
 	}
-	public void setPlaylistId(int playlistId) {
-		this.playlistId = playlistId;
+//	public int getPlaylistId() {
+//		return playlistId;
+//	}
+//	public void setPlaylistId(int playlistId) {
+//		this.playlistId = playlistId;
+//	}
+	
+	public Library getSong() {
+		return song;
+	}
+	public void setSong(Library song) {
+		this.song = song;
 	}
 	public String getPlaylistTitle() {
 		return playlistTitle;
@@ -20,35 +32,24 @@ public class Playlist {
 	public void setPlaylistTitle(String playlistTitle) {
 		this.playlistTitle = playlistTitle;
 	}
-	public String getAlbum() {
-		return album;
+	public String getEmailId() {
+		return emailId;
 	}
-	public void setAlbum(String album) {
-		this.album = album;
-	}
-	public String getFavourites() {
-		return favourites;
-	}
-	public void setFavourites(String favourites) {
-		this.favourites = favourites;
-	}
-	
-	@Override
-	public String toString() {
-		return "Playlist [playlistId=" + playlistId + ", playlistTitle=" + playlistTitle + ", album=" + album
-				+ ", favourites=" + favourites + "]";
-	}
-	public Playlist(int playlistId, String playlistTitle, String album, String favourites) {
-		super();
-		this.playlistId = playlistId;
-		this.playlistTitle = playlistTitle;
-		this.album = album;
-		this.favourites = favourites;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 	public Playlist() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public Playlist( Library song, String playlistTitle, String emailId) {
+		super();
+		//this.playlistId = playlistId;
+		this.song = song;
+		this.playlistTitle = playlistTitle;
+		this.emailId = emailId;
+	}
+	
 	
 }
-
+	

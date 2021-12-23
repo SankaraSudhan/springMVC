@@ -58,8 +58,8 @@ public class Library {
 	
 	@Override
 	public String toString() {
-		return "Library [songId=" + songId + ", songTitle=" + songTitle + ", userName=" + userName + ", artists="
-				+ artists + ", album=" + album + ", genre=" + genre + ", language=" + language + "]";
+		return "\nsongId=" + songId + ", songTitle=" + songTitle + ", userName=" + userName + ", artists="
+				+ artists + ", album=" + album + ", genre=" + genre + ", language=" + language + "\n";
 	}
 	public Library(int songId, String songTitle, String userName, String artists, String album, String genre,
 			String language) {

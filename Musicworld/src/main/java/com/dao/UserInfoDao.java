@@ -76,20 +76,19 @@ public class UserInfoDao {
 		}
 	}
 	    
-	    //show user details
-		public void showUsers(UserInfo show) throws ClassNotFoundException, SQLException {
-			 String query ="select*from user_info";
-					 Connection con=ConnectionUtil.getDBconnect();
-					 PreparedStatement stmt =con.prepareStatement(query);
-					 ResultSet rs=stmt.executeQuery();
-					 while(rs.next())
-					 {
-						System.out.println("\n" +rs.getString(1)+"\n"+rs.getString(2)+"\n"+rs.getString(3)+"\n"+rs.getString(4)+"\n"+rs.getString(5)+"\n"+rs.getString(6)+"\n"+rs.getLong(7));
-					 }
-
-                
-	}
-		//List all users
+////	    //show user details
+////		public void showUsers(UserInfo show) throws ClassNotFoundException, SQLException {
+////			 String query ="select*from user_info";
+////					 Connection con=ConnectionUtil.getDBconnect();
+////					 PreparedStatement stmt =con.prepareStatement(query);
+////					 ResultSet rs=stmt.executeQuery();
+////					 while(rs.next())
+////					 {
+////						System.out.println("\n" +rs.getString(1)+"\n"+rs.getString(2)+"\n"+rs.getString(3)+"\n"+rs.getString(4)+"\n"+rs.getString(5)+"\n"+rs.getString(6)+"\n"+rs.getLong(7));
+////					 }
+//}
+		
+//List all users
 		 public List<UserInfo> showAllUsers() 
 	        {
 		    List<UserInfo> userList = new ArrayList<UserInfo>();
@@ -98,14 +97,6 @@ public class UserInfoDao {
 	        PreparedStatement stmt;
 	        try {
 				con = ConnectionUtil.getDBconnect();
-			} catch (ClassNotFoundException e1) {
-				
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				
-				e1.printStackTrace();
-			}
-	        try {
 	        	 stmt =con.prepareStatement(query);
 				 ResultSet rs=stmt.executeQuery();
 				 while(rs.next())
@@ -117,7 +108,10 @@ public class UserInfoDao {
 	        }catch(SQLException e) {
 	        	
 	        	e.printStackTrace();
-	        }
+	        } catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return userList;
 }
 }
