@@ -83,15 +83,15 @@ public class PlaylistDao {
 }
 	 
 	 //delete playlist
-	 public void deletePlaylist(String playlistTitle) throws ClassNotFoundException, SQLException {
+	 public void deletePlaylist(String playlistTitle, UserInfo user) throws ClassNotFoundException, SQLException {
 
-			String delete = "delete from playlist where playlist_title=?";
+			String delete = "delete from playlist where playlist_title=? and email_id=? ";
 
 			Connection con = ConnectionUtil.getDBconnect();
 
 			PreparedStatement stmt = con.prepareStatement(delete);
 			stmt.setString(1, playlistTitle);
-
+            stmt.setString(2, user.getEmailId());
 			int res = stmt.executeUpdate();
 			System.out.println(res + "is deleted");
 			stmt.close();

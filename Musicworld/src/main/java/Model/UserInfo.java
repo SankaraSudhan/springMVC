@@ -10,25 +10,7 @@ public class UserInfo {
 	private String password;
 	private String role;
 	private long mobileNumber;
-	public UserInfo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public UserInfo(String firstName, String lastName, String emailId, String userName, String password, String role,
-			long mobileNumber) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.emailId = emailId;
-		this.userName = userName;
-		this.password = password;
-		this.role = role;
-		this.mobileNumber = mobileNumber;
-	}
-	public UserInfo(String userName1) {
-		// TODO Auto-generated constructor stub
-		this.userName=userName1;
-	}
+	private double wallet;
 	public String getFirstName() {
 		return firstName;
 	}
@@ -71,9 +53,15 @@ public class UserInfo {
 	public void setMobileNumber(long mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
+	public double getWallet() {
+		return wallet;
+	}
+	public void setWallet(double wallet) {
+		this.wallet = wallet;
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(emailId, firstName, lastName, mobileNumber, password, role, userName);
+		return Objects.hash(emailId, firstName, lastName, mobileNumber, password, role, userName, wallet);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -87,13 +75,30 @@ public class UserInfo {
 		return Objects.equals(emailId, other.emailId) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName) && mobileNumber == other.mobileNumber
 				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
-				&& Objects.equals(userName, other.userName);
+				&& Objects.equals(userName, other.userName)
+				&& Double.doubleToLongBits(wallet) == Double.doubleToLongBits(other.wallet);
 	}
 	@Override
 	public String toString() {
 		return "UserInfo [firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId + ", userName="
-				+ userName + ", password=" + password + ", role=" + role + ", mobileNumber=" + mobileNumber + "]";
+				+ userName + ", password=" + password + ", role=" + role + ", mobileNumber=" + mobileNumber
+				+ ", wallet=" + wallet + "]";
+	}
+	public UserInfo(String firstName, String lastName, String emailId, String userName, String password, String role,
+			long mobileNumber, double wallet) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailId = emailId;
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
+		this.mobileNumber = mobileNumber;
+		this.wallet = wallet;
+	}
+	public UserInfo() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
-	  
 }

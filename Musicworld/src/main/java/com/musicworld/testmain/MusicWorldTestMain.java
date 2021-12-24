@@ -21,9 +21,9 @@ public class MusicWorldTestMain {
 		Scanner sc = new Scanner(System.in);
 		boolean flagCheck = false;
 		int select;
-		long checkUser = 0;
+		UserInfo checkUser = null;
 		System.out.println(
-				"                            'Welcome to MusicWorld' \n  Select your option: \n  1)Register/Signup \n  2)Login/Signin \n  3)Delete User \n  4)Update User \n  5)List users \n  6)Add playlist \n  7)Show playlist \n  8)Delete playlist \n  ");
+				"                            'Welcome to MusicWorld' \n  Select your option: \n  1)Register/Signup \n  2)Login/Signin ");
 		select = Integer.parseInt(sc.nextLine());
 
 		switch (select) {
@@ -126,14 +126,14 @@ public class MusicWorldTestMain {
 
 			} while (flagCheck);
 
-			UserInfo str = new UserInfo(firstName, lastName, email_id, userName, password, role, mobileNumber);
+			UserInfo str = new UserInfo(firstName, lastName, email_id, userName, password, role, mobileNumber,0);
 			UserInfoDao obj2 = new UserInfoDao();
 			obj2.insertUser(str);
-			break;
+			
         
-	    // Login portal
+	    //Login portal
 		case 2:
-
+            System.out.println("----Login portal----");
 			System.out.println("Enter your userName: ");
 			String username = sc.nextLine();
 
@@ -150,166 +150,10 @@ public class MusicWorldTestMain {
 
 			LoginDao obj1 = new LoginDao();
 			checkUser = obj1.login(str2);
-			break;
-        
-//		// Delete user
-//		case 3:
-//			System.out.println("Enter the User_name to delete ");
-//			String userName1 = sc.nextLine();
-//			obj.delete(userName1);
-//			break;
-        
-		// Update user details
-		case 4:
-
-			System.out.println("Enter to update user details");
-			String firstName1;
-			String lastName1;
-			String email_id1;
-			String userName11;
-			String password1;
-			String role1;
-			long mobileNumber1 = 0;
-
-			do {
-				System.out.println("Enter your firstName: ");
-				firstName1 = sc.nextLine();
-				if (firstName1.matches("[a-zA-Z]+") && firstName1 != "") {
-					// System.out.println("Your firstName is valid");
-					flagCheck = false;
-				} else {
-					System.out.println("its invalid!!");
-					flagCheck = true;
-				}
-			} while (flagCheck);
-
-			do {
-				System.out.println("Enter your lastName: ");
-				lastName1 = sc.nextLine();
-				if (lastName1.matches("[a-zA-Z]+") && lastName1 != "") {
-					// System.out.println("Your lastName is valid: ");
-					flagCheck = false;
-				} else {
-					System.out.println("its invalid!!");
-					flagCheck = true;
-				}
-			} while (flagCheck);
-
-			do {
-				System.out.println("Enter your email id: ");
-				email_id1 = sc.nextLine();
-				if (email_id1.matches("[a-z0-9]+[@][a-z]+[.][a-z]+") && email_id1 != "") {
-					// System.out.println("Your emailId is valid");
-					flagCheck = false;
-				} else {
-					System.out.println("its invalid!!");
-					flagCheck = true;
-				}
-			} while (flagCheck);
-
-			do {
-				System.out.println("Enter your userName: ");
-				userName11 = sc.nextLine();
-				if (userName11.matches("[a-z]+") && userName11 != "") {
-					// System.out.println("Your userName is valid");
-					flagCheck = false;
-				} else {
-					System.out.println("its invalid!!");
-					flagCheck = true;
-				}
-			} while (flagCheck);
-
-			do {
-				System.out.println("Enter your password: ");
-				password1 = sc.nextLine();
-				if (password1.matches("[a-zA-Z0-9@#]+") && password1 != "") {
-					// System.out.println("Your password is valid");
-					flagCheck = false;
-				} else {
-					System.out.println("its invalid!!");
-					flagCheck = true;
-				}
-			} while (flagCheck);
-
-			do {
-				System.out.println("Enter Your Role: ");
-				role1 = sc.nextLine();
-				if (role1.matches("[a-zA-Z]+") && role1 != "") {
-					// System.out.println("Your role is valid");
-					flagCheck = false;
-				} else {
-					System.out.println("its invalid!!");
-					flagCheck = true;
-				}
-			} while (flagCheck);
-
-			do {
-				System.out.println("Enter your mobileNumber: ");
-				String check = sc.nextLine();
-				if (check.matches("[0-9]{10}") && check != "") {
-					// System.out.println("Your mobileNumber is valid");
-					flagCheck = false;
-					mobileNumber1 = Long.parseLong(check);
-					break;
-				} else {
-					System.out.println("its invalid");
-					flagCheck = true;
-				}
-
-			} while (flagCheck);
-
-			UserInfo str1 = new UserInfo(firstName1, lastName1, email_id1, userName11, password1, role1, mobileNumber1);
-			UserInfoDao obj21 = new UserInfoDao();
-			obj21.update(str1);
-			break;
-	
-
-//		// list user
-//		case 5:
-//			UserInfoDao listUsers = new UserInfoDao();
-//			List<UserInfo> userList = listUsers.showAllUsers();
-//			for (int i = 0; i < userList.size(); i++) {
-//				System.out.println(userList.get(i));
-//			}
-//			break;
-
-		// Add playlist
-		case 6:
-			System.out.println("Enter playlist Title");
-			String playlistTitle = sc.nextLine();
-			PlaylistDao playDao = new PlaylistDao();
-			// int playlistId=playDao.findPlaylistId(playlistTitle);
-//			System.out.println("Enter playList id:");
-//			int playlistId =Integer.parseInt(sc.nextLine());
-			System.out.println("Enter email Id");
-			String emailId = sc.nextLine();
-			System.out.println("Enter song title");
-			String songTitle = sc.nextLine();
-			LibraryDao libDao = new LibraryDao();
-			Library song = libDao.findSong(songTitle);
-			Playlist playList = new Playlist(song, playlistTitle, emailId);
-
-			playDao.insertPlaylist(playList);
+			System.out.println(checkUser.getEmailId());
 			break;
 
-		// show playlist
-		case 7:
-			PlaylistDao showPlaylist = new PlaylistDao();
-			List<Playlist> playlist = showPlaylist.showAllPlaylist();
-			for (int i = 0; i < playlist.size(); i++) {
-				System.out.println(playlist.get(i));
-			}
 
-			break;
-
-		// Delete playlist
-		case 8:
-			System.out.println("Enter playlist title to Delete here: ");
-			String deletePlaylist = sc.nextLine();
-			PlaylistDao del = new PlaylistDao();
-			del.deletePlaylist(deletePlaylist);
-			break;
-        
 		default:
 			System.out.println("Please enter the valid details!!!");
 			break;
@@ -317,17 +161,17 @@ public class MusicWorldTestMain {
 
 		// Admin operations
 		String choiceContinue = null;
-		if (checkUser == 9344774428l) {
+		if (checkUser.getRole().equals("admin")) {
 			do {
 				System.out.println(
-						"                       'Admin operations' \n  Select your option: \n  1)List all songs \t  2)Delete song \t  3)Add song \t  4)Update songs \t 5)List all users \t  6)Delete user");
+						"                       'Admin operations' \n  Select your option: \n  1)List all songs \t  2)Delete song \t  3)Add song \t  4)Update songs \t 5)List all users \t  6)Delete user \t 7)Show all playlist \t");
 				select = Integer.parseInt(sc.nextLine());
 				boolean choice;
 				boolean choice1;
 
 				switch (select) {
 
-				// List all songs
+				//List all songs
 				case 1:
 					LibraryDao listSongs = new LibraryDao();
 					List<Library> songList = listSongs.showAllSongs();
@@ -409,17 +253,12 @@ public class MusicWorldTestMain {
 							}
 							for (int i = 0; i < songLanguage.size(); i++) {
 								System.out.println(songLanguage.get(i));
-							}
-
-							
-						
+							}					
 						}
-					
-
 					}
 					break;
 
-					// Delete song
+				//Delete song
 				case 2:
 					System.out.println("Enter song title to Delete here: ");
 					String songTitle1 = sc.nextLine();
@@ -427,7 +266,7 @@ public class MusicWorldTestMain {
 					lib3.deleteSong(songTitle1);
 					break;
 
-				// Add song
+				//Add song
 				case 3:
 					System.out.println("Enter song details to add here: ");
 
@@ -636,6 +475,15 @@ public class MusicWorldTestMain {
 					 userName1 = sc.nextLine();
 					obj.delete(userName1);
 					break;	
+					
+				// List all playlist
+				case 7:
+					PlaylistDao showPlaylist = new PlaylistDao();
+					List<Playlist> playlist = showPlaylist.showAllPlaylist();
+					for (int i = 0; i < playlist.size(); i++) {
+						System.out.println(playlist.get(i));
+					}
+					break;
 				default:
 					System.out.println("Please enter the valid details!!!");
 				}
@@ -646,14 +494,14 @@ public class MusicWorldTestMain {
 		}else {
 			do {
 				System.out.println(
-						"                    \n  Select your option: \n  1)List all songs \t  ");
+						"                    \n  Select your option: \n 1)List all songs \n 2)Update User \n 3)Add playlist \n 4)Delete Playlist \n 5)Recharge wallet \n 6)Switch to premium user \n 7)Add On User");
 				select = Integer.parseInt(sc.nextLine());
 				boolean choice;
 				boolean choice1;
 
 				switch (select) {
 
-				// List all songs
+				//List all songs
 				case 1:
 					LibraryDao listSongs = new LibraryDao();
 					List<Library> songList = listSongs.showAllSongs();
@@ -669,7 +517,7 @@ public class MusicWorldTestMain {
 						int choose1 =Integer.parseInt(sc.nextLine()) ;
 						switch (choose1) {
 						case 1:
-							 System.out.println("enter the song title");
+							 System.out.println("Enter the song title");
 							 String title = sc.nextLine();
 							Library songTitle = null;
 							for (Library l : songList) {
@@ -680,7 +528,7 @@ public class MusicWorldTestMain {
 							System.out.println(songTitle);
 							break;
 						case 2:
-							System.out.println("enter the artists");
+							System.out.println("Enter the artist name");
 							 String artists = sc.nextLine();
 							List<Library> songArtists = new ArrayList<Library>();
 							for (Library l : songList) {
@@ -695,7 +543,7 @@ public class MusicWorldTestMain {
 							break;
 
 						case 3:
-							System.out.println("enter the Album");
+							System.out.println("Enter the Album name");
 							 String album = sc.nextLine();
 							List<Library> songAlbum = new ArrayList<Library>();
 							for (Library l : songList) {
@@ -710,7 +558,7 @@ public class MusicWorldTestMain {
 							break;
 
 						case 4:
-							System.out.println("enter the genre");
+							System.out.println("Enter the genre name");
 							 String genre = sc.nextLine();
 							List<Library> songGenre = new ArrayList<Library>();
 							for (Library l : songList) {
@@ -725,7 +573,7 @@ public class MusicWorldTestMain {
 							break;
 
 						case 5:
-							System.out.println("enter the language");
+							System.out.println("Enter the language name");
 							 String language = sc.nextLine();
 							List<Library> songLanguage = new ArrayList<Library>();
 							for (Library l : songList) {
@@ -735,18 +583,164 @@ public class MusicWorldTestMain {
 							}
 							for (int i = 0; i < songLanguage.size(); i++) {
 								System.out.println(songLanguage.get(i));
-							}
-
-								
-						}
-					
+							}		
+						}					
 					}
 					break;
+                 
+				//Update user 
+				case 2:
+					System.out.println("Enter to update user details");
+					String firstName1;
+					String lastName1;
+					//String email_id1;
+					String userName11;
+					String password1;
+					//String role1;
+					long mobileNumber1 = 0;
 
+					do {
+						System.out.println("Enter your firstName: ");
+						firstName1 = sc.nextLine();
+						if (firstName1.matches("[a-zA-Z]+") && firstName1 != "") {
+							// System.out.println("Your firstName is valid");
+							flagCheck = false;
+						} else {
+							System.out.println("its invalid!!");
+							flagCheck = true;
+						}
+					} while (flagCheck);
+
+					do {
+						System.out.println("Enter your lastName: ");
+						lastName1 = sc.nextLine();
+						if (lastName1.matches("[a-zA-Z]+") && lastName1 != "") {
+							// System.out.println("Your lastName is valid: ");
+							flagCheck = false;
+						} else {
+							System.out.println("its invalid!!");
+							flagCheck = true;
+						}
+					} while (flagCheck);
+
+					do {
+						System.out.println("Enter your userName: ");
+						userName11 = sc.nextLine();
+						if (userName11.matches("[a-z]+") && userName11 != "") {
+							// System.out.println("Your userName is valid");
+							flagCheck = false;
+						} else {
+							System.out.println("its invalid!!");
+							flagCheck = true;
+						}
+					} while (flagCheck);
+
+					do {
+						System.out.println("Enter your password: ");
+						password1 = sc.nextLine();
+						if (password1.matches("[a-zA-Z0-9@#]+") && password1 != "") {
+							// System.out.println("Your password is valid");
+							flagCheck = false;
+						} else {
+							System.out.println("its invalid!!");
+							flagCheck = true;
+						}
+					} while (flagCheck);
+
+					do {
+						System.out.println("Enter your mobileNumber: ");
+						String check = sc.nextLine();
+						if (check.matches("[0-9]{10}") && check != "") {
+							// System.out.println("Your mobileNumber is valid");
+							flagCheck = false;
+							mobileNumber1 = Long.parseLong(check);
+							break;
+						} else {
+							System.out.println("its invalid");
+							flagCheck = true;
+						}
+
+					} while (flagCheck);
+					
+					checkUser.setFirstName(firstName1);
+					checkUser.setLastName(lastName1);
+					checkUser.setPassword(password1);
+					checkUser.setUserName(userName11);
+					checkUser.setMobileNumber(mobileNumber1);
+				
+					//UserInfo str1 = new UserInfo(firstName1, lastName1, email_id1, userName11, password1, role1, mobileNumber1,0);
+					UserInfoDao obj21 = new UserInfoDao();
+					obj21.update(checkUser);
+					
+				break;
+				
+				//Add playlist
+				case 3:
+					System.out.println("Enter playlist Title");
+					String playlistTitle = sc.nextLine();
+					PlaylistDao playDao = new PlaylistDao();
+					// int playlistId=playDao.findPlaylistId(playlistTitle);
+//					System.out.println("Enter playList id:");
+//					int playlistId =Integer.parseInt(sc.nextLine());
+					System.out.println("Enter email Id");
+					String emailId = sc.nextLine();
+					System.out.println("Enter song title");
+					String songTitle = sc.nextLine();
+					LibraryDao libDao = new LibraryDao();
+					Library song = libDao.findSong(songTitle);
+					Playlist playList = new Playlist(song, playlistTitle, emailId);
+
+					playDao.insertPlaylist(playList);
+					break;
+				
+				//Delete playlist
+				case 4:
+					System.out.println("Enter playlist title to Delete here: ");
+					String deletePlaylist = sc.nextLine();
+					PlaylistDao del = new PlaylistDao();
+					del.deletePlaylist(deletePlaylist,checkUser);
+					break;
+				
+				//Recharge wallet
+				case 5:
+					System.out.println("Recharge here");
+					System.out.println("Enter amount");
+					double amount = Double.parseDouble(sc.nextLine());
+					System.out.println("Enter card number");
+					long cardNo = Long.parseLong(sc.nextLine());
+					System.out.println("Enter cvv");
+					int cvv = Integer.parseInt(sc.nextLine());
+					checkUser.setWallet(amount);
+					UserInfoDao userDao = new UserInfoDao();
+					userDao.UpdateUserWallet(checkUser);
+					System.out.println("Do you want to continue Yes  or  No ");
+					
+					break;
+				
+				//Switch to premium user
+				case 6:
+					System.out.println("Switch to premium user here: ");
+					System.out.println("Switch to premium for 150Rs per year");
+					UserInfoDao userInfoDao= new UserInfoDao();
+					userInfoDao.SwitchToPremium(checkUser);
+					System.out.println("Do you want to continue Yes  or  No ");
+					
+					break;
+				
+				//Add on user
+				case 7:
+					System.out.println("Enter present user email id to share premium account!!");
+					System.out.println("Enter email id");
+					String email = sc.nextLine();
+					UserInfoDao userDao1 = new UserInfoDao();
+					userDao1.AddOnUser(email);
+					
+					break;
+				
 				default:
 					System.out.println("Please enter the valid details!!!");
 				}
-				System.out.println("Do you want to continue Yes  or  NO ");
+				System.out.println("Do you want to continue Yes  or  No ");
 				choiceContinue = sc.nextLine();
 			} while (choiceContinue.equalsIgnoreCase("yes"));
 
