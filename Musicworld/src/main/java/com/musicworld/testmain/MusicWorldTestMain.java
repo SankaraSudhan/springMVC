@@ -283,7 +283,7 @@ public class MusicWorldTestMain {
 
 						String songId1 = sc.nextLine();
 						System.out.println(songId1);
-						if (songId1.matches("[0-9]{1}") && songId1 != "" && songId1 != " ") {
+						if (songId1.matches("[0-9]{2}") && songId1 != "" && songId1 != " ") {
 							songId = Integer.parseInt(songId1);
 							flagCheck = false;
 						} else {
@@ -380,7 +380,7 @@ public class MusicWorldTestMain {
 
 						String songId2 = sc.nextLine();
 						System.out.println(songId2);
-						if (songId2.matches("[0-9]{1}") && songId2 != "" && songId2 != " ") {
+						if (songId2.matches("[0-9]{2}") && songId2 != "" && songId2 != " ") {
 							songId5 = Integer.parseInt(songId2);
 							flagCheck = false;
 						} else {
@@ -680,8 +680,8 @@ public class MusicWorldTestMain {
 					String playlistTitle = sc.nextLine();
 					PlaylistDao playDao = new PlaylistDao();
 					// int playlistId=playDao.findPlaylistId(playlistTitle);
-//					System.out.println("Enter playList id:");
-//					int playlistId =Integer.parseInt(sc.nextLine());
+                    //System.out.println("Enter playList id:");
+                    //int playlistId =Integer.parseInt(sc.nextLine());
 					System.out.println("Enter email Id");
 					String emailId = sc.nextLine();
 					System.out.println("Enter song title");
@@ -744,7 +744,7 @@ public class MusicWorldTestMain {
 				choiceContinue = sc.nextLine();
 			} while (choiceContinue.equalsIgnoreCase("yes"));
 
-		}
+		  }
 		}
 	}
 

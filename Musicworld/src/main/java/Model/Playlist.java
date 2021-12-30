@@ -3,8 +3,6 @@ package Model;
 import java.util.Objects;
 
 public class Playlist {
-	//private int playlistId;
-	//private int songId;
 	private Library song;
 	private String playlistTitle;
 	private String emailId;
@@ -13,12 +11,7 @@ public class Playlist {
 		return  "\nsongId=" + song + ", playlistTitle=" + playlistTitle
 				+ ", emailId=" + emailId + "\n";
 	}
-//	public int getPlaylistId() {
-//		return playlistId;
-//	}
-//	public void setPlaylistId(int playlistId) {
-//		this.playlistId = playlistId;
-//	}
+
 	
 	public Library getSong() {
 		return song;

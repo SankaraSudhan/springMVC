@@ -18,7 +18,7 @@ import Model.UserInfo;
 
 public class LibraryDao {
 
-	// Insert songs by admin
+	// Add songs by admin
 	public void insertLibrary(Library str3) throws ClassNotFoundException, SQLException {
 
 		Connection con = ConnectionUtil.getDBconnect();
@@ -67,7 +67,6 @@ public class LibraryDao {
 		stmt.setString(5, up.getLanguage());
 		stmt.setInt(6, up.getSongId());
 		
-		// ResultSet result=stmt.executeQuery();
 		int res = stmt.executeUpdate();
 
 		System.out.println(res + " is updated !!");
@@ -90,7 +89,6 @@ public class LibraryDao {
 	}
 
 	// list song details
-
 	public List<Library> showAllSongs() {
 		List<Library> songList = new ArrayList<Library>();
 		String query = "select*from library";
@@ -120,7 +118,7 @@ public class LibraryDao {
 		return songList;
 	}
      
-	//find song id
+	//find song title
 	public int findSongId(String name)
 	{
 		String query="select song_id from library where song_title='"+name+"'";
@@ -141,7 +139,7 @@ public class LibraryDao {
 	return songId;	
 	}
 	
-	//finding song title from song object
+	// finding song title from song object
 	public Library findSong(String name)
 	{
 		String query="select * from library where song_title='"+name+"'";
@@ -163,7 +161,7 @@ public class LibraryDao {
 	return song;	
 	}
 	
-	//finding song Id from song object
+	// finding song Id from song object
 	public Library findSong(int songId)
 	{
 		String query="select * from library where song_id='"+songId+"'";
@@ -184,39 +182,7 @@ public class LibraryDao {
 		}
 	return song;	
 	}
-	
-//	public static int findTrainId(TrainModel trainModel) {
-//	 	String findTrainIdQuery="select train_id from trains where train_number = "+trainModel.getTrainNumber();
-//	 	Connection con = null;
-//			try {
-//				con = ConnectionUtil.getDBconnect();
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	 	Statement stmt = null;
-//	 	int trainId = 0;
-//	 	try {
-//				stmt = con.createStatement();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//	 	try {
-//				ResultSet rs=stmt.executeQuery(findTrainIdQuery);
-//				if(rs.next()) {
-//					//System.out.println(rs.getInt(1));
-//					trainId = rs.getInt(1);
-//					//System.out.println(trainId);
-//				}
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			return trainId;
+
 
 }
 	

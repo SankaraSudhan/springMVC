@@ -17,9 +17,9 @@ import Model.Playlist;
 import Model.UserInfo;
 
 public class PlaylistDao {
+	// Add playlist
 	public void insertPlaylist(Playlist playlist) throws ClassNotFoundException, SQLException {
 		
-		 //Playlist str = new Playlist( playlistTitle,playlistId, emailId, songTitle);
 		Connection con = ConnectionUtil.getDBconnect();
 		LibraryDao libDao=new LibraryDao();
 		int songId=libDao.findSongId(playlist.getSong().getSongTitle());
@@ -29,10 +29,10 @@ public class PlaylistDao {
 		stmt.setString(2, playlist.getPlaylistTitle());
 		stmt.setString(3,playlist.getEmailId());
 		
-		
-		//stmt.executeUpdate();
 		System.out.println(stmt.executeUpdate()>0?"Playlist inserted successfully":"Playlist not updated");
 	}
+	
+	// Find playlist
 	public int findPlaylistId(String playListName)
 	{
 		String query="select id from playlist where playlist_Title='"+playListName+"'";
@@ -53,7 +53,7 @@ public class PlaylistDao {
 	return playlistId;	
 	}
 	
-	//show playlist
+	// List all playlist
 	 public List<Playlist> showAllPlaylist() 
      {
 	    List<Playlist> showPlaylist = new ArrayList<Playlist>();
@@ -82,7 +82,7 @@ public class PlaylistDao {
 		return showPlaylist;
 }
 	 
-	 //delete playlist
+	 // Delete playlist
 	 public void deletePlaylist(String playlistTitle, UserInfo user) throws ClassNotFoundException, SQLException {
 
 			String delete = "delete from playlist where playlist_title=? and email_id=? ";
