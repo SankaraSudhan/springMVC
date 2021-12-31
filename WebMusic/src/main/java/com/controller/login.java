@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.Connection.ConnectionUtil;
 import com.Model.UserInfo;
 import com.dao.LoginDao;
-@WebServlet("/loginWeb")
+@WebServlet("/login")
 public class login extends HttpServlet{
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		UserInfo checkUser = null;
@@ -21,32 +21,35 @@ public class login extends HttpServlet{
 		
 		String password = req.getParameter("pass");
 		System.out.println(password);
-		
-		UserInfo str2 = new UserInfo();
-
-		str2.setUserName("text");
-
-		str2.setPassword("pass");
-
-		
-
-		LoginDao obj1 = new LoginDao();
-		try {
-			str2 = obj1.login(str2);
 			
-			res.sendRedirect("home.jsp");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		LoginDao login = new LoginDao();
+		try 
+		{
+			Boolean str = login.login(uname, password);
+			
+			if(str)
+			{
+				String admin = login.Checkadmin(uname, password);
+				if(admin =="yes")
+				{
+				res.sendRedirect("Admin.jsp");
+			}
+				else
+				{
+					res.sendRedirect("home.jsp");
+				}
+			}
+			else
+			{
+				res.getWriter().print("Please Register..!");
+			}
 		}
-		
-		
-		
-		
-		
+				
+	
+	catch (Exception e) {
+			// TODO Auto-generated catch block
+		}
 		
 	}
 
