@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Login page</title>
  <style>
         body {
             padding: 0;
@@ -14,18 +14,21 @@
         }
         
         .background {
-            background: url('images/LoginPageBackground.jpg') rgba(0, 0, 0, 0.61);
+            background: url(https://c4.wallpaperflare.com/wallpaper/361/42/364/headphones-black-white-akg-wallpaper-preview.jpg) rgba(0, 0, 0, 0.61);
             background-repeat: no-repeat;
             background-size: cover;
-            background-blend-mode: darken;
+          
+            background-blend-mode: light;
             position: absolute;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
-            z-index: -1;
+            z-index: -1;         
             filter: blur(3px);
             min-height: 800px;
+           
+           
 
         }
         
@@ -139,6 +142,7 @@
         }
         a{
             color: white;
+            text-decoration: none;
         }
         a:hover{
             color: grey;
@@ -155,32 +159,37 @@
 </head>
 
 <body>
+    <%String message=(String) session.getAttribute("errors");
+    if(message!=null){
+    %>
+   <center><h2><%=message %></h2></center>
+    <%} %>
     <div class="background"></div>
     <div class="container">
         
         <p class="p"><h1>Login</h1></p>
-        <form action="login">
+        <form action="loginServer">
 
             <div class="form-item">
                 <span class="material-icons-outlined">
-                    account_circle
+                    
                     </span>
-                <input type="text" name="text" id="text" placeholder="username or email">
+                <input type="text" name="text" id="text" placeholder="Enter Email Id" pattern = "[a-z0-9]+[@][a-z]+[.][a-z]{2,5}" required>
             </div>
 
             <div class="form-item">
                 <span class="material-icons-outlined">                   
-                    lock
+                    
                     </span>
-                <input type="password" name="pass" id="pass" placeholder="password">
+                <input type="password" name="pass" id="pass" placeholder="Enter Password" pattern = "[a-zA-Z0-9@#]{5,10}" required >
 
             </div>
 
             <button type="submit"> LOGIN </button>
-            <p> Or Login Using</p>
+            <p> Or </p>
             <div class="options">
                 
-                <button class="gl">Google</button>
+                <button class="gl" ><a href="index.jsp">Register</a></button>
             </div>
            
         </form>

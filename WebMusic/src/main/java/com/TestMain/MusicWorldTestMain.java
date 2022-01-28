@@ -3,14 +3,14 @@ package com.TestMain;
 import java.util.*;
 import java.sql.*;
 
-import com.Connection.ConnectionUtil;
-import com.Model.Library;
-import com.Model.Playlist;
-import com.Model.UserInfo;
-import com.dao.LibraryDao;
-import com.dao.LoginDao;
-import com.dao.PlaylistDao;
-import com.dao.UserInfoDao;
+import com.webmusic.DaoImpl.LibraryDao;
+import com.webmusic.DaoImpl.LoginDao;
+import com.webmusic.DaoImpl.PlaylistDao;
+import com.webmusic.DaoImpl.UserInfoDao;
+import com.webmusic.model.Library;
+import com.webmusic.model.Playlist;
+import com.webmusic.model.UserInfo;
+import com.webmusic.util.ConnectionUtil;
 
 
 
@@ -151,7 +151,7 @@ public class MusicWorldTestMain {
 			Connection con = ConnectionUtil.getDBconnect();
 
 			LoginDao obj1 = new LoginDao();
-			checkUser = obj1.login(str2);
+			//checkUser = obj1.login(str2);
 			System.out.println(checkUser.getEmailId());
 			break;
 
@@ -360,7 +360,7 @@ public class MusicWorldTestMain {
 						}
 					} while (flagCheck);
 
-					Library str3 = new Library(songId, songTitle, userName, artists, album, genre, language);
+					Library str3 = new Library(songId, songTitle, artists, album, genre, language);
 					LibraryDao lib1 = new LibraryDao();
 					lib1.insertLibrary(str3);
 					break;
@@ -457,7 +457,7 @@ public class MusicWorldTestMain {
 						}
 					} while (flagCheck);
 
-					Library up = new Library(songId5, songTitle2, userName1, artists1, album1, genre1, language1);
+					Library up = new Library(songId5, songTitle2, artists1, album1, genre1, language1);
 					LibraryDao lib2 = new LibraryDao();
 					lib2.update(up);
 					break;
